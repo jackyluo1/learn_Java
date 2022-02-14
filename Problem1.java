@@ -28,16 +28,13 @@
  * 1. A constructor that takes in x, y, z components of the vector.
  * 2. Methods to get the values of individual components (e.g. getX ,etc.).
  * 3. A toString method that returns a string that describes this vector. This
- * string should
- * be of the form “(x,y,z)” replacing the letters with their values. Each
- * component should
- * be formatted to round to exactly two decimal places.
+ * string should be of the form “(x,y,z)” replacing the letters with their values.
+ * Each component should be formatted to round to exactly two decimal places.
  * 4. A method getMagnitude that returns its magnitude.
  * 5. A method dotProduct that returns the dot product of this vector and
  * another vector. It should not change the two vectors.
  * 6. A method angleBetween that returns the angle between two vectors in
- * degrees. It should not change the two vectors. It should throw an
- * IllegalStateException
+ * degrees. It should not change the two vectors. It should throw an IllegalStateException
  * if this operation cannot be completed.
  * 
  * You may find some useful method in the Math class for this assignment.
