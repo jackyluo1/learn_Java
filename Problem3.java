@@ -1,4 +1,5 @@
 /**
+ * [40 pts]
  * Design and implement an ArrayTool.class
  * - You will have an int array in this class, and this array CANNOT be visited by other class directly.
  * - You could construct this class with TWO options:
