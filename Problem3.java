@@ -130,4 +130,5 @@ class ArrayTool {
         System.out.println("numOfTools: " + numOfTools());
 
     }
+
 }

@@ -101,4 +101,5 @@ class Vector3D {
         System.out.println("dotProduct(a, b): " + a.dotProduct(b));
         System.out.println("angleBetween(a, b):  " + a.angleBetween(b));
     }
+
 }
