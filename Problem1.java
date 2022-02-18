@@ -39,3 +39,66 @@
  * 
  * You may find some useful method in the Math class for this assignment.
  */
+
+class Vector3D {
+    private double x;
+    private double y;
+    private double z;
+    private java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
+
+    public Vector3D(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public double getX() {
+        return this.x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
+
+    public double getZ() {
+        return this.z;
+    }
+
+    public String toString() {
+        // java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
+        return "(" + df.format(this.x) + "," + df.format(this.y) + "," + df.format(this.z) + ")";
+    }
+
+    public double getMagnitude() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.y, 2));
+    }
+
+    public double dotProduct(Vector3D other) {
+        return this.x * other.x + this.y * other.y + this.z * other.z;
+    }
+
+    public double angleBetween(Vector3D other) {
+        if (this.getMagnitude() == 0 || other.getMagnitude() == 0) {
+            System.out.println("IllegalStateException, -1 means it is Illegal");
+            return -1;
+        }
+
+        double value = this.dotProduct(other) / (this.getMagnitude() * other.getMagnitude()); // get the value of cos(θ)
+        double angle = Math.acos(value) * 180 / Math.PI; // get the angle
+
+        if (angle >= 180) {
+            angle -= 180; // get the small one
+        }
+        return angle;
+    }
+
+    public static void main(String[] args) {
+        Vector3D a = new Vector3D(10, 5, 1);
+        Vector3D b = new Vector3D(10, 0, 0);
+        System.out.println("a.toString: " + a.toString());
+        System.out.println("a.x: " + a.getX());
+        System.out.println("a.getMagnitude: " + a.getMagnitude());
+        System.out.println("dotProduct(a, b): " + a.dotProduct(b));
+        System.out.println("angleBetween(a, b):  " + a.angleBetween(b));
+    }
+}
