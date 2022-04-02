@@ -1,0 +1,9 @@
+1. 2 % 3   =  2，         both are positive integer, 2 is less than 3 , the remainder is itself
+2. 0 % 3   =  0，         0 '%' any number , the remainder is 0
+3. 3 % 3   =  0,         3 = 3 * 1 + 0
+4. -2 % 3  =  -2         For java, It uses 'truncate' instead of 'floor'. mod = -2 - (-2 /3) * 3 = -2 - 0 * 3 = -2. But for python,it shoule be  1.
+5. 2 % -3  =  2          JFor java, It uses 'truncate' instead of 'floor'. mod = 2 - (2 /-3) * -3 = 2 - 0 * -3 = 2. . But for python, it shoule be  -1.
+6. -2 % -3 =  -2         both are negative integer -2 is larger than -3, so the reminder is itself. 
+
+
+

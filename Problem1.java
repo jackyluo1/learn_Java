@@ -1,105 +1,111 @@
-/* Problem1 [40 pts]
- *
- * introduction:
- * 
- * Vectors are commonly used in mathematics and physics. A 3D vector is
- * represented as three components: x, y and z. It is signified by a
- * direction and a length(magnitude).
- *
- * Some operations on vectors include:
- *
- * 1. Magnitude: for a vector v, this is denoted as
- * |v| = Math.sqrt(x^2 + y^2 + z^2)
- * 
- * 2. Dot product: The dot product of two vectors v = (x1 , y1 , z1) and
- * w = (x2, y2, z2) is defined as a number v * w = x1 * x2 + y1 * y2 + z1 * z2
- * 
- * 3. Angle between two vectors: This is defined as cos(θ) = v * w / (|v| * |w|)
- * 
- * Technically given two vectors, there are two angles between them. This
- * returns the smaller of the two angles. For example, if the two vectors align
- * with the clock hands at 3pm, this would return 90 degrees (not 270 degrees).
- * 
- * 
- * Implementation:
- * 
- * Write a class Vector3D that represents a 3D vector. This class should contain
- * the following:
- * 1. A constructor that takes in x, y, z components of the vector.
- * 2. Methods to get the values of individual components (e.g. getX ,etc.).
- * 3. A toString method that returns a string that describes this vector. This
- * string should be of the form “(x,y,z)” replacing the letters with their values.
- * Each component should be formatted to round to exactly two decimal places.
- * 4. A method getMagnitude that returns its magnitude.
- * 5. A method dotProduct that returns the dot product of this vector and
- * another vector. It should not change the two vectors.
- * 6. A method angleBetween that returns the angle between two vectors in
- * degrees. It should not change the two vectors. It should throw an IllegalStateException
- * if this operation cannot be completed.
- * 
- * You may find some useful method in the Math class for this assignment.
+import java.util.Scanner;
+
+/**
+ * p1
  */
-
-class Vector3D {
-    private double x;
-    private double y;
-    private double z;
-    private java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
-
-    public Vector3D(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    public double getX() {
-        return this.x;
-    }
-
-    public double getY() {
-        return this.y;
-    }
-
-    public double getZ() {
-        return this.z;
-    }
-
-    public String toString() {
-        // java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
-        return "(" + df.format(this.x) + "," + df.format(this.y) + "," + df.format(this.z) + ")";
-    }
-
-    public double getMagnitude() {
-        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.y, 2));
-    }
-
-    public double dotProduct(Vector3D other) {
-        return this.x * other.x + this.y * other.y + this.z * other.z;
-    }
-
-    public double angleBetween(Vector3D other) {
-        if (this.getMagnitude() == 0 || other.getMagnitude() == 0) {
-            System.out.println("IllegalStateException, -1 means it is Illegal");
-            return -1;
-        }
-
-        double value = this.dotProduct(other) / (this.getMagnitude() * other.getMagnitude()); // get the value of cos(θ)
-        double angle = Math.acos(value) * 180 / Math.PI; // get the angle
-
-        if (angle >= 180) {
-            angle -= 180; // get the small one
-        }
-        return angle;
-    }
+public class Problem1 {
 
     public static void main(String[] args) {
-        Vector3D a = new Vector3D(10, 5, 1);
-        Vector3D b = new Vector3D(10, 0, 0);
-        System.out.println("a.toString: " + a.toString());
-        System.out.println("a.x: " + a.getX());
-        System.out.println("a.getMagnitude: " + a.getMagnitude());
-        System.out.println("dotProduct(a, b): " + a.dotProduct(b));
-        System.out.println("angleBetween(a, b):  " + a.angleBetween(b));
-    }
 
+        Scanner start = new Scanner(System.in);
+        System.out.println("-- Enter the text below:");
+        String target = start.nextLine();
+        System.out.print("-- Enter E for Encryption, D for Decryption, X to exit:");
+        String cmd = start.nextLine();
+
+        while (!cmd.equals("X")) {
+
+            while (!cmd.equals("D") && !cmd.equals("E") && !cmd.equals("X")) {
+                System.out.println("-- Input not recognized. Try again.");
+                Scanner newcmd = new Scanner(System.in);
+                System.out.print("-- Enter E for Encryption, D for Decryption, X to exit:");
+                cmd = newcmd.nextLine();
+                if (cmd.equals("X")) {
+                    System.exit(0);
+                    newcmd.close();
+                }
+            }
+
+            String[] targetarr = target.split("");
+            char result[] = new char[targetarr.length];
+
+            if (cmd.equals("E")) {
+                System.out.print("-- Enter key:");
+                int key = start.nextInt();
+
+                if (key < 0) {
+                    System.out.println("The key k should be a positive integer!");
+                    System.exit(0);
+                }
+                for (int i = 0; i < targetarr.length; i++) {
+                    int each = target.charAt(i);
+                    if (each >= 65 && each <= 90) { // for "A"-"Z"
+                        int x = target.charAt(i) + key - 65;
+                        int index = x % 26; // A to Z, it is 26. A = 1 ..... Z = 26
+                        char res = (char) (index + 65); // reture the true index
+
+                        result[i] = res;
+                    } else if (each >= 97 && each <= 122) { // for "a"-"z"
+                        int x = target.charAt(i) + key - 97;
+                        int index = x % 26; // a to z, it is 26. a = 1 ..... z = 26
+                        char res = (char) (index + 97); // reture the true index
+
+                        result[i] = res;
+                    } else {
+                        char res = target.charAt(i);
+
+                        result[i] = res;
+                    }
+                }
+                System.out.println("-- The encrypted text is below");
+                System.out.println(result);
+            }
+
+            if (cmd.equals("D")) {
+                System.out.print("-- Enter key:");
+                int key = start.nextInt();
+
+                if (key < 0) {
+                    System.out.println("The key k should be a positive integer!");
+                    System.exit(0);
+                }
+                for (int i = 0; i < targetarr.length; i++) {
+                    int each = target.charAt(i);
+
+                    if (each >= 65 && each <= 90) {
+                        int x = 90 - target.charAt(i) + key;
+                        int index = x % 26;
+                        char res = (char) (90 - index);
+
+                        result[i] = res;
+                    } else if (each >= 97 && each <= 122) {
+                        int x = 122 - target.charAt(i) + key;
+                        int index = x % 26;
+                        char res = (char) (122 - index);
+
+                        result[i] = res;
+                    } else {
+                        char res = target.charAt(i);
+
+                        result[i] = res;
+                    }
+                }
+                System.out.println("-- The decrypted text is below");
+                System.out.println(result);
+            }
+
+            Scanner info = new Scanner(System.in);
+            System.out.println("Another example");
+            System.out.println("-- Enter the text below:");
+            target = info.nextLine();
+            System.out.print("-- Enter E for Encryption, D for Decryption, X to exit:");
+            cmd = info.nextLine();
+            if (cmd.equals("X")) {
+                System.exit(0);
+                info.close();
+            }
+
+        }
+        start.close();
+    }
 }
